@@ -15,7 +15,7 @@ def some_vacancy_dict():
         },
         "alternate_url": "https://test.ru",
         "snippet": {"requirement": "test", "responsibility": "test"},
-        "employer": {"id": 1, "name": "name"}
+        "employer": {"id": 1, "name": "name"},
     }
 
 
@@ -38,10 +38,12 @@ def test_VacancyHHRU_invalid_employer_id(some_vacancy_dict):
     with pytest.raises(TypeError):
         VacancyHHRU(some_vacancy_dict)
 
+
 def test_VacancyHHRU_invalid_employer_name(some_vacancy_dict):
     some_vacancy_dict["employer"]["name"] = 1
     with pytest.raises(TypeError):
         VacancyHHRU(some_vacancy_dict)
+
 
 def test_VacancyHHRU_invalid_employer_info(some_vacancy_dict):
     some_vacancy_dict["employer"] = []
@@ -138,7 +140,7 @@ def test_vacancy_math_funcs():
             },
             "alternate_url": "https://test.ru",
             "snippet": {"requirement": "test", "responsibility": "test"},
-            "employer": {"id": 1, "name": "name"}
+            "employer": {"id": 1, "name": "name"},
         }
     )
     object_2 = VacancyHHRU(
@@ -152,7 +154,7 @@ def test_vacancy_math_funcs():
             },
             "alternate_url": "https://test.ru",
             "snippet": {"requirement": "test", "responsibility": "test"},
-            "employer": {"id": 1, "name": "name"}
+            "employer": {"id": 1, "name": "name"},
         }
     )
     object_3 = VacancyHHRU(
@@ -166,7 +168,7 @@ def test_vacancy_math_funcs():
             },
             "alternate_url": "https://test.ru",
             "snippet": {"requirement": "test", "responsibility": "test"},
-            "employer": {"id": 1, "name": "name"}
+            "employer": {"id": 1, "name": "name"},
         }
     )
 

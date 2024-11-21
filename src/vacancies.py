@@ -6,7 +6,18 @@ from typing import Any, Tuple, Union
 class Vacancy(ABC):
     """Абстрактный класс для работы с вакансиями"""
 
-    __slots__ = ("id", "name", "salary_down", "salary_up", "salary_currency", "url", "requirement", "responsibility", "employer_id", "employer_name")
+    __slots__ = (
+        "id",
+        "name",
+        "salary_down",
+        "salary_up",
+        "salary_currency",
+        "url",
+        "requirement",
+        "responsibility",
+        "employer_id",
+        "employer_name",
+    )
 
     @abstractmethod
     def __init__(self) -> None:

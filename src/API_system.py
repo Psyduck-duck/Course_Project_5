@@ -1,10 +1,11 @@
-from abc import ABC, abstractmethod
-from data.__init__ import PATH_TO_DATA_DIRECTORY
-
-import requests
 import json
-import pandas as pd
 import time
+from abc import ABC, abstractmethod
+
+import pandas as pd
+import requests
+
+from data.__init__ import PATH_TO_DATA_DIRECTORY
 
 
 class ApiConnection(ABC):
@@ -40,7 +41,7 @@ class ApiConnectionHHRU(ApiConnection):
             "per_page": 100,
             "only_with_salary": False,
             "period": None,
-            "employer_id": []
+            "employer_id": [],
         }
         self.__search_target = None
         self.__vacancies = []
