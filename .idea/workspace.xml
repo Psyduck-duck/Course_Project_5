@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38b44e94-348b-465a-9c79-8f2a94c1c790" name="Changes" comment="add code for work with API">
+    <list default="true" id="38b44e94-348b-465a-9c79-8f2a94c1c790" name="Changes" comment="write PATH_TO_DATA_DIRECTORY">
       <change afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/vacancies.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/test_vacancies.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Course_Project_5.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Course_Project_5.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/user_settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/user_settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/API_system.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/API_system.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_API_system.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_API_system.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,20 +43,45 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Python tests.Python tests for test_API_system.test_ApiConnectionHHRU_get_vacancy_data_invalid_status_code.executor": "Run",
+    "Python tests.Python tests for test_API_system.test_employer_id_list.executor": "Run",
     "Python.API_system.executor": "Run",
+    "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "feature/homework",
-    "last_opened_file_path": "C:/Users/Anton/Desktop/PycharmProjects/Course_Project_5/tests"
+    "last_opened_file_path": "C:/Users/Anton/Desktop/PycharmProjects/Course_Project_5/data"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Anton\Desktop\PycharmProjects\Course_Project_5\data" />
       <recent name="C:\Users\Anton\Desktop\PycharmProjects\Course_Project_5\tests" />
       <recent name="C:\Users\Anton\Desktop\PycharmProjects\Course_Project_5\src" />
       <recent name="C:\Users\Anton\Desktop\PycharmProjects\Course_Project_5" />
     </key>
   </component>
   <component name="RunManager">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Course_Project_5" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Python tests for test_API_system.test_ApiConnectionHHRU_get_vacancy_data_invalid_status_code" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Course_Project_5" />
       <option name="ENV_FILES" value="" />
@@ -73,8 +97,25 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="Python tests for test_API_system.test_employer_id_list" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="Course_Project_5" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_API_system.test_employer_id_list&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python tests.Python tests for test_API_system.test_employer_id_list" />
         <item itemvalue="Python tests.Python tests for test_API_system.test_ApiConnectionHHRU_get_vacancy_data_invalid_status_code" />
       </list>
     </recent_temporary>
@@ -119,13 +160,49 @@
       <option name="project" value="LOCAL" />
       <updated>1732197691168</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add code for crate vacancy object">
+      <option name="closed" value="true" />
+      <created>1732198505057</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1732198505057</updated>
+    </task>
+    <task id="LOCAL-00005" summary=".idea">
+      <option name="closed" value="true" />
+      <created>1732198519762</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1732198519762</updated>
+    </task>
+    <task id="LOCAL-00006" summary="add user_s">
+      <option name="closed" value="true" />
+      <created>1732202186067</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1732202186067</updated>
+    </task>
+    <task id="LOCAL-00007" summary="write PATH_TO_DATA_DIRECTORY">
+      <option name="closed" value="true" />
+      <created>1732202221425</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1732202221425</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="base commit" />
     <MESSAGE value="add init.py in tests" />
     <MESSAGE value="add code for work with API" />
-    <option name="LAST_COMMIT_MESSAGE" value="add code for work with API" />
+    <MESSAGE value="add code for crate vacancy object" />
+    <MESSAGE value=".idea" />
+    <MESSAGE value="add user_s" />
+    <MESSAGE value="write PATH_TO_DATA_DIRECTORY" />
+    <option name="LAST_COMMIT_MESSAGE" value="write PATH_TO_DATA_DIRECTORY" />
   </component>
 </project>

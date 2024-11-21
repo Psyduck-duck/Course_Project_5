@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from data.__init__ import PATH_TO_DATA_DIRECTORY
 
 import requests
 import json
@@ -39,11 +40,24 @@ class ApiConnectionHHRU(ApiConnection):
             "per_page": 100,
             "only_with_salary": False,
             "period": None,
+            "employer_id": []
         }
         self.__search_target = None
         self.__vacancies = []
         self.__is_connecting = False
-        self.employer_id_list = []
+        self.__employer_id_list = []
+
+    @property
+    def employer_id_list(self):
+        return self.__employer_id_list
+
+    @employer_id_list.setter
+    def employer_id_list(self, id_list: list[int]) -> None:
+        self.__employer_id_list = id_list
+
+    @employer_id_list.deleter
+    def employer_id_list(self) -> None:
+        self.__employer_id_list = []
 
     def connect(self) -> None:
         pass
@@ -62,6 +76,7 @@ class ApiConnectionHHRU(ApiConnection):
         if self.__is_connecting:
             self.__headers["text"] = search_text
             self.__headers["per_page"] = per_page
+            self.__headers["employer_id"] = self.__employer_id_list
             while self.__headers.get("page") != 20:
                 response = requests.get(self.__url, self.__headers)
                 vacancies = response.json()["items"]
@@ -72,43 +87,3 @@ class ApiConnectionHHRU(ApiConnection):
             raise ValueError("Connection status is False")
 
         return self.__vacancies
-
-
-object = ApiConnectionHHRU()
-object.connect()
-vacancy_data = object.get_vacancy_data('Python', 100)
-for vacancy in vacancy_data:
-    print(vacancy['employer'])
-
-
-
-
-
-
-def getEmployers():
-    req = requests.get('https://api.hh.ru/employers')
-    data = req.content.decode()
-    req.close()
-    count_of_employers = json.loads(data)['found']
-    employers = []
-    i = 0
-    j = count_of_employers
-    while i < j:
-        req = requests.get('https://api.hh.ru/employers/' + str(i + 1))
-        data = req.content.decode()
-        req.close()
-        jsObj = json.loads(data)
-        try:
-            employers.append([jsObj['id'], jsObj['name']])
-            i += 1
-            print([jsObj['id'], jsObj['name']])
-        except:
-            i += 1
-            j += 1
-        # if i % 200 == 0:
-        #     time.sleep(0.2)
-    return employers
-
-
-# employers = getEmployers()
-
