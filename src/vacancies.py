@@ -6,7 +6,7 @@ from typing import Any, Tuple, Union
 class Vacancy(ABC):
     """Абстрактный класс для работы с вакансиями"""
 
-    __slots__ = ("id", "name", "salary_down", "salary_up", "salary_currency", "url", "requirement", "responsibility")
+    __slots__ = ("id", "name", "salary_down", "salary_up", "salary_currency", "url", "requirement", "responsibility", "employer_id", "employer_name")
 
     @abstractmethod
     def __init__(self) -> None:
@@ -41,6 +41,8 @@ class VacancyHHRU(Vacancy):
         self.salary_currency = self.__validation_salary_currency(vacancy_dict)
         self.url = self.__validation_url(vacancy_dict)
         self.requirement, self.responsibility = self.__validation_snippet(vacancy_dict)
+        self.employer_id = self.__validation_employer_id(vacancy_dict)
+        self.employer_name = self.__validation_employer_name(vacancy_dict)
 
     def __lt__(self, other: Vacancy) -> bool:
         """Метод для сравнения зарплаты (<)"""
@@ -146,3 +148,28 @@ class VacancyHHRU(Vacancy):
             # raise TypeError("requirement and responsibility must be str")
 
         raise ValueError("snippet nor detected")
+
+    def __validation_employer_id(self, vacancy_dict: dict) -> int:
+        "Метод для валидации id работодателя"
+
+        if vacancy_dict.get("employer"):
+            try:
+                vacancy_employer_id = int(vacancy_dict.get("employer").get("id"))
+            except:
+                raise TypeError("employer id must transform into int")
+            if type(vacancy_employer_id) == int:
+                return vacancy_employer_id
+            raise TypeError("employer id must be int")
+
+        raise ValueError("employer info not found")
+
+    def __validation_employer_name(self, vacancy_dict: dict) -> str:
+        "Метод для валидации имени работадателя"
+
+        if vacancy_dict.get("employer"):
+            vacancy_employer_name = vacancy_dict.get("employer").get("name")
+            if type(vacancy_employer_name) == str:
+                return vacancy_employer_name
+            raise TypeError("employer name must be str")
+
+        raise ValueError("employer info not found")
