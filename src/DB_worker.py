@@ -1,3 +1,5 @@
+from typing import List, Tuple, Any
+
 import psycopg2
 
 from abc import ABC, abstractmethod
@@ -156,7 +158,7 @@ class DBWorkerPostgresql(DBWorker):
                                 vacancy.requirement,
                                 vacancy.responsibility,
                                 vacancy.url,
-                                vacancy.employer_id
+                                vacancy.employer_id,
                             ),
                         )
                     except Exception as error:
@@ -175,7 +177,10 @@ class DBWorkerPostgresql(DBWorker):
 
         with conn.cursor() as cur:
 
-            cur.execute(f"DELETE FROM {table_name}")
+            if table_name in ["vacancies", "employers"]:
+                cur.execute(f"DELETE FROM {table_name}")
+            else:
+                raise ValueError(f"Table {table_name} not found")
 
         if table_name == "vacancies":
             self.__vacancies_id_list = list()
@@ -185,3 +190,24 @@ class DBWorkerPostgresql(DBWorker):
 
         conn.commit()
         conn.close()
+
+    def get_companies_and_vacancies_count(self) -> list[tuple[str, int]]:
+        """получает список всех компаний и количество вакансий у каждой компании"""
+
+        conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
+
+        with conn.cursor() as cur:
+            cur.execute(
+                """SELECT employers.name, COUNT(*) FROM vacancies
+                    INNER JOIN employers ON vacancies.employer_id = employers.employer_id
+                    GROUP BY employers.name
+                    ORDER BY COUNT(*) DESC
+                    """
+            )
+            employers_vacancies_count = cur.fetchall()
+
+
+        conn.commit()
+        conn.close()
+
+        return employers_vacancies_count
