@@ -3,50 +3,7 @@ from typing import Any, List, Tuple
 
 import psycopg2
 
-from vacancies import VacancyHHRU
-
-# def create_database(database_name: str, params: dict):
-#     """Создание базы данных и таблиц для сохранения данных о каналах и видео."""
-#
-#     conn = psycopg2.connect(dbname="postgres", **params)
-#     conn.autocommit = True
-#     cur = conn.cursor()
-#
-#     try:
-#         cur.execute(f"DROP DATABASE {database_name.lower()}")
-#     except:
-#         pass
-#     cur.execute(f"CREATE DATABASE {database_name}")
-#
-#     cur.close()
-#     conn.close()
-#
-#     conn = psycopg2.connect(dbname=database_name.lower(), **params)
-#
-#     with conn.cursor() as cur:
-#         cur.execute('''
-#             CREATE TABLE employers (
-#                 employer_id INTEGER PRIMARY KEY,
-#                 name VARCHAR
-#             )
-#         ''')
-#
-#     with conn.cursor() as cur:
-#         cur.execute('''
-#             CREATE TABLE vacancies (
-#                 vacancy_id SERIAL PRIMARY KEY,
-#                 name VARCHAR NOT NULL,
-#                 salary_down INTEGER,
-#                 salary_up INTEGER,
-#                 salary_currency VARCHAR,
-#                 requirement VARCHAR,
-#                 responsibility VARCHAR,
-#                 employer_id INTEGER REFERENCES employers(employer_id)
-#             )
-#         ''')
-#
-#     conn.commit()
-#     conn.close()
+from src.vacancies import VacancyHHRU
 
 
 class DBWorker(ABC):
@@ -76,14 +33,18 @@ class DBWorkerPostgresql(DBWorker):
         self.__vacancies_id_list = []
         self.__employers_id_list = []
 
-    def create_database(self):
-        """Создание базы данных и таблиц для сохранения данных о каналах и видео."""
+    def create_database(self) -> None:
+        """Создание базы данных и таблиц для сохранения данных о работодателях и вакансиях."""
 
         conn = psycopg2.connect(dbname="postgres", **self.__params)
         conn.autocommit = True
         cur = conn.cursor()
 
-        cur.execute(f"DROP DATABASE {self.__db_name.lower()}")
+        try:
+            cur.execute(f"DROP DATABASE {self.__db_name.lower()}")
+        except psycopg2.errors.InvalidCatalogName:
+            print(f"ОШИБКА:  база данных '{self.__db_name}' не существует")
+
         cur.execute(f"CREATE DATABASE {self.__db_name}")
 
         cur.close()
