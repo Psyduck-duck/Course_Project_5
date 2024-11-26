@@ -128,6 +128,21 @@ class DBWorkerPostgresql(DBWorker):
         conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
 
         with conn.cursor() as cur:
+            cur.execute("SELECT vacancy_id FROM vacancies")
+            vacancies_id_list = cur.fetchall()
+            for vacancy in vacancies_id_list:
+                if vacancy[0] not in self.__vacancies_id_list:
+                    self.__vacancies_id_list.append(vacancy[0])
+
+            cur.execute("SELECT employer_id FROM employers")
+            employer_id_list = cur.fetchall()
+            for employer_id in employer_id_list:
+                if employer_id[0] not in self.__employers_id_list:
+                    self.__employers_id_list.append(employer_id[0])
+
+        conn.commit()
+
+        with conn.cursor() as cur:
             for vacancy in vacancy_objects_list:
                 if vacancy.employer_id not in self.__employers_id_list:
                     try:
@@ -140,9 +155,9 @@ class DBWorkerPostgresql(DBWorker):
                         )
                     except Exception as error:
                         print(f"Error: {error}")
-                self.__employers_id_list.append(vacancy.employer_id)
+                    self.__employers_id_list.append(vacancy.employer_id)
 
-                if vacancy.id not in self.__vacancies_id_list:
+                if int(vacancy.id) not in self.__vacancies_id_list:
                     try:
                         cur.execute(
                             """
@@ -163,9 +178,8 @@ class DBWorkerPostgresql(DBWorker):
                         )
                     except Exception as error:
                         print(f"Error: {error}")
-                else:
-                    print(f"дубликат вакансии {vacancy.id}")
-                self.__vacancies_id_list.append(vacancy.id)
+
+                    self.__vacancies_id_list.append(int(vacancy.id))
 
         conn.commit()
         conn.close()
@@ -191,7 +205,7 @@ class DBWorkerPostgresql(DBWorker):
         conn.commit()
         conn.close()
 
-    def get_companies_and_vacancies_count(self) -> list[tuple[str, int]]:
+    def get_companies_and_vacancies_count(self) -> list[tuple[Any, ...]]:
         """получает список всех компаний и количество вакансий у каждой компании"""
 
         conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
@@ -206,8 +220,25 @@ class DBWorkerPostgresql(DBWorker):
             )
             employers_vacancies_count = cur.fetchall()
 
-
         conn.commit()
         conn.close()
 
         return employers_vacancies_count
+
+    def get_all_vacancies(self) -> list[tuple]:
+        """получает список всех вакансий с указанием названия компании, названия вакансии и зарплаты и ссылки на вакансию"""
+
+        conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
+
+        with conn.cursor() as cur:
+            cur.execute(
+                """SELECT employers.name AS employer_name, vacancies.name, salary_down, salary_up, salary_currency, url FROM vacancies
+                    INNER JOIN employers USING (employer_id)"""
+            )
+
+            vacancies_list = cur.fetchall()
+
+        conn.commit()
+        conn.close()
+
+        return vacancies_list
