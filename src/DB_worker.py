@@ -1,10 +1,9 @@
-from typing import List, Tuple, Any
+from abc import ABC, abstractmethod
+from typing import Any, List, Tuple
 
 import psycopg2
 
-from abc import ABC, abstractmethod
 from vacancies import VacancyHHRU
-
 
 # def create_database(database_name: str, params: dict):
 #     """Создание базы данных и таблиц для сохранения данных о каналах и видео."""
@@ -267,10 +266,11 @@ class DBWorkerPostgresql(DBWorker):
         conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
 
         with conn.cursor() as cur:
-            cur.execute(f"""SELECT * FROM vacancies
+            cur.execute(
+                f"""SELECT * FROM vacancies
                             WHERE salary_down > {avg_salary}
                             """
-                        )
+            )
 
             vacancies_list_upper_avg = cur.fetchall()
 
@@ -289,9 +289,11 @@ class DBWorkerPostgresql(DBWorker):
         for target in target_list:
 
             with conn.cursor() as cur:
-                cur.execute(f"""SELECT * FROM vacancies
+                cur.execute(
+                    f"""SELECT * FROM vacancies
                                 WHERE vacancies.name LIKE '%{target}%'
-                                """)
+                                """
+                )
 
                 vacancies_list = cur.fetchall()
 
