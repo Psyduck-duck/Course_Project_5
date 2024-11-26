@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38b44e94-348b-465a-9c79-8f2a94c1c790" name="Changes" comment="finaly wersinon">
-      <change afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+    <list default="true" id="38b44e94-348b-465a-9c79-8f2a94c1c790" name="Changes" comment="finally work!">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database_example.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB_worker.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB_worker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,15 +68,15 @@
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "feature/homework",
-    "last_opened_file_path": "C:/Users/Anton/Desktop/PycharmProjects/Course_Project_5/data"
+    "last_opened_file_path": "C:/Users/Anton/Desktop/PycharmProjects/Course_Project_5"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Anton\Desktop\PycharmProjects\Course_Project_5" />
       <recent name="C:\Users\Anton\Desktop\PycharmProjects\Course_Project_5\data" />
       <recent name="C:\Users\Anton\Desktop\PycharmProjects\Course_Project_5\tests" />
       <recent name="C:\Users\Anton\Desktop\PycharmProjects\Course_Project_5\src" />
-      <recent name="C:\Users\Anton\Desktop\PycharmProjects\Course_Project_5" />
     </key>
   </component>
   <component name="RunManager" selected="Python.main">
@@ -379,7 +380,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732616320277</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="finally work!">
+      <option name="closed" value="true" />
+      <created>1732627081325</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1732627081325</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -409,6 +418,7 @@
     <MESSAGE value="lint fixes" />
     <MESSAGE value="add tests for DBWorker" />
     <MESSAGE value="finaly wersinon" />
-    <option name="LAST_COMMIT_MESSAGE" value="finaly wersinon" />
+    <MESSAGE value="finally work!" />
+    <option name="LAST_COMMIT_MESSAGE" value="finally work!" />
   </component>
 </project>
