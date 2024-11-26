@@ -62,6 +62,14 @@ def test_save_data_to_database(vacancy_object_1, vacancy_object_2):
     result_companies_and_vacancies_count_method = database_object.get_companies_and_vacancies_count()
     assert result_companies_and_vacancies_count_method == [("name_2", 1), ("name_1", 1)]
 
+    result_all_vacancies = database_object.get_all_vacancies()
+    assert result_all_vacancies == [('name_1', 'test', 1, 2, 'test', 'https://test.ru'), ('name_2', 'test', 1, 2, 'test', 'https://test_2.ru')]
 
+    result_avg_salary = database_object.get_avg_salary()
+    assert result_avg_salary == 1.00
 
+    result_vacancies_with_higher_salary = database_object.get_vacancies_with_higher_salary()
+    assert result_vacancies_with_higher_salary == []
 
+    result_vacancies_with_keyword = database_object.get_vacancies_with_keyword(["test"])
+    assert result_vacancies_with_keyword == [(1, 'test', 1, 2, 'test', 'test', 'test', 'https://test.ru', 1), (2, 'test', 1, 2, 'test', 'test', 'test', 'https://test_2.ru', 2)]
