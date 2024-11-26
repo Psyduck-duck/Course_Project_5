@@ -258,3 +258,23 @@ class DBWorkerPostgresql(DBWorker):
         conn.close()
 
         return avg_salary
+
+    def get_vacancies_with_higher_salary(self) -> list[tuple]:
+        """получает список всех вакансий, у которых зарплата выше средней по всем вакансиям"""
+
+        avg_salary = self.get_avg_salary()
+
+        conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
+
+        with conn.cursor() as cur:
+            cur.execute(f"""SELECT * FROM vacancies
+                            WHERE salary_down > {avg_salary}
+                            """
+                        )
+
+            vacancies_list_upper_avg = cur.fetchall()
+
+        conn.commit()
+        conn.close()
+
+        return vacancies_list_upper_avg
