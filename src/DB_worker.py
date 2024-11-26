@@ -42,8 +42,8 @@ class DBWorkerPostgresql(DBWorker):
 
         try:
             cur.execute(f"DROP DATABASE {self.__db_name.lower()}")
-        except psycopg2.errors.InvalidCatalogName:
-            print(f"ОШИБКА:  база данных '{self.__db_name}' не существует")
+        except:
+            pass
 
         cur.execute(f"CREATE DATABASE {self.__db_name}")
 
@@ -85,7 +85,10 @@ class DBWorkerPostgresql(DBWorker):
     def save_data_to_database(self, vacancy_objects_list: list[VacancyHHRU]) -> None:
         """Метод для добавления данных (списка объектов класса Vacancy в таблицы БД"""
 
-        conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
+        try:
+            conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
+        except Exception:
+            raise ValueError(f"База данных {self.__db_name} не существует")
 
         with conn.cursor() as cur:
             cur.execute("SELECT vacancy_id FROM vacancies")
@@ -147,7 +150,10 @@ class DBWorkerPostgresql(DBWorker):
     def delete_data_from_database(self, table_name: str) -> None:
         """Метод для удаления данных из таблицы"""
 
-        conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
+        try:
+            conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
+        except Exception:
+            raise ValueError(f"База данных {self.__db_name} не существует")
 
         with conn.cursor() as cur:
 
@@ -168,7 +174,10 @@ class DBWorkerPostgresql(DBWorker):
     def get_companies_and_vacancies_count(self) -> list[tuple[Any, ...]]:
         """получает список всех компаний и количество вакансий у каждой компании"""
 
-        conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
+        try:
+            conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
+        except Exception:
+            raise ValueError(f"База данных {self.__db_name} не существует")
 
         with conn.cursor() as cur:
             cur.execute(
@@ -188,7 +197,10 @@ class DBWorkerPostgresql(DBWorker):
     def get_all_vacancies(self) -> list[tuple]:
         """получает список всех вакансий с указанием названия компании, названия вакансии и зарплаты и ссылки на вакансию"""
 
-        conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
+        try:
+            conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
+        except Exception:
+            raise ValueError(f"База данных {self.__db_name} не существует")
 
         with conn.cursor() as cur:
             cur.execute(
@@ -206,7 +218,10 @@ class DBWorkerPostgresql(DBWorker):
     def get_avg_salary(self):
         """получает среднюю зарплату по вакансиям"""
 
-        conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
+        try:
+            conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
+        except Exception:
+            raise ValueError(f"База данных {self.__db_name} не существует")
 
         with conn.cursor() as cur:
             cur.execute(" SELECT AVG(salary_down) AS avg_salary FROM vacancies")
@@ -224,7 +239,10 @@ class DBWorkerPostgresql(DBWorker):
 
         avg_salary = self.get_avg_salary()
 
-        conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
+        try:
+            conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
+        except Exception:
+            raise ValueError(f"База данных {self.__db_name} не существует")
 
         with conn.cursor() as cur:
             cur.execute(
@@ -243,7 +261,10 @@ class DBWorkerPostgresql(DBWorker):
     def get_vacancies_with_keyword(self, target_list: list[str]) -> list[tuple]:
         """получает список всех вакансий, в названии которых содержатся переданные в метод слова, например python"""
 
-        conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
+        try:
+            conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
+        except Exception:
+            raise ValueError(f"База данных {self.__db_name} не существует")
 
         result_list = []
 
@@ -252,7 +273,7 @@ class DBWorkerPostgresql(DBWorker):
             with conn.cursor() as cur:
                 cur.execute(
                     f"""SELECT * FROM vacancies
-                                WHERE vacancies.name LIKE '%{target}%'
+                                WHERE vacancies.name ILIKE '%{target}%'
                                 """
                 )
 
