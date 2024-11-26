@@ -242,3 +242,19 @@ class DBWorkerPostgresql(DBWorker):
         conn.close()
 
         return vacancies_list
+
+    def get_avg_salary(self):
+        """получает среднюю зарплату по вакансиям"""
+
+        conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
+
+        with conn.cursor() as cur:
+            cur.execute(" SELECT AVG(salary_down) AS avg_salary FROM vacancies")
+
+            avg_salary_tuple = cur.fetchall()
+            avg_salary = round(avg_salary_tuple[0][0], 2)
+
+        conn.commit()
+        conn.close()
+
+        return avg_salary
