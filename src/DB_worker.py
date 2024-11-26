@@ -278,3 +278,26 @@ class DBWorkerPostgresql(DBWorker):
         conn.close()
 
         return vacancies_list_upper_avg
+
+    def get_vacancies_with_keyword(self, target_list: list[str]) -> list[tuple]:
+        """получает список всех вакансий, в названии которых содержатся переданные в метод слова, например python"""
+
+        conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
+
+        result_list = []
+
+        for target in target_list:
+
+            with conn.cursor() as cur:
+                cur.execute(f"""SELECT * FROM vacancies
+                                WHERE vacancies.name LIKE '%{target}%'
+                                """)
+
+                vacancies_list = cur.fetchall()
+
+            result_list = result_list + vacancies_list
+
+        conn.commit()
+        conn.close()
+
+        return result_list
