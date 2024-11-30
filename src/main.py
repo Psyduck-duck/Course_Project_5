@@ -1,8 +1,6 @@
 import json
 import os.path
 
-import psycopg2
-
 from config import config
 from data.__init__ import PATH_TO_DATA_DIRECTORY
 from DB_worker import DBWorkerPostgresql
@@ -34,7 +32,7 @@ def main():
     try:
         database_object.get_all_vacancies()
     except ValueError:
-        print(f"База данных не существует")
+        print("База данных не существует")
     print("")
 
     create_answer = ""
@@ -61,7 +59,7 @@ def main():
         database_object.delete_data_from_database("vacancies")
         database_object.delete_data_from_database("employers")
         print("")
-        print(f"Данные успешно удалены")
+        print("Данные успешно удалены")
 
     save_data_answer = ""
     while not save_data_answer:
@@ -76,7 +74,7 @@ def main():
         vacancies_objects_list = [VacancyHHRU(vacancy) for vacancy in vacancies_list]
         database_object.save_data_to_database(vacancies_objects_list)
         print("")
-        print(f"Данные успешно добавлены")
+        print("Данные успешно добавлены")
 
     employers_vacancies_count_answer = ""
     while not employers_vacancies_count_answer:

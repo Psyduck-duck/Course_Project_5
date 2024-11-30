@@ -1,6 +1,5 @@
 import re
 from abc import ABC, abstractmethod
-from typing import Any, Tuple, Union
 
 
 class Vacancy(ABC):
@@ -92,7 +91,7 @@ class VacancyHHRU(Vacancy):
 
         if vacancy_dict.get("id"):
             id = vacancy_dict.get("id")
-            if type(id) == str:
+            if isinstance(id, str):
                 return id
             raise TypeError("id must be str")
 
@@ -103,7 +102,7 @@ class VacancyHHRU(Vacancy):
 
         if vacancy_dict.get("name"):
             name = vacancy_dict.get("name")
-            if type(name) == str:
+            if isinstance(name, str):
                 return name
             raise TypeError("name must be str")
 
@@ -116,9 +115,9 @@ class VacancyHHRU(Vacancy):
             salary_down = vacancy_dict.get("salary").get("from")
             salary_up = vacancy_dict.get("salary").get("to")
             # salary_currency = vacancy_dict.get("salary").get("currency")
-            if type(salary_up) != int:  # and type(salary_down) == int:
+            if not isinstance(salary_up, int):  # and type(salary_down) == int:
                 salary_up = None
-            if type(salary_down) != int:
+            if not isinstance(salary_down, int):
                 salary_down = None
             return salary_down, salary_up
             # raise TypeError("salary must be int")
@@ -131,7 +130,7 @@ class VacancyHHRU(Vacancy):
         if vacancy_dict.get("salary"):
             if vacancy_dict.get("salary").get("currency"):
                 salary_currency = vacancy_dict.get("salary").get("currency")
-                if type(salary_currency) == str:
+                if isinstance(salary_currency, str):
                     return salary_currency
                 raise TypeError("currency must be str")
         return None
@@ -151,9 +150,9 @@ class VacancyHHRU(Vacancy):
         if vacancy_dict.get("snippet"):
             vacancy_requirement = vacancy_dict.get("snippet").get("requirement")
             vacancy_responsibility = vacancy_dict.get("snippet").get("responsibility")
-            if type(vacancy_requirement) != str:  # and type(vacancy_responsibility) == str:
+            if not isinstance(vacancy_requirement, str):  # and type(vacancy_responsibility) == str:
                 vacancy_requirement = None
-            if type(vacancy_responsibility) != str:
+            if not isinstance(vacancy_responsibility, str):
                 vacancy_responsibility = None
             return vacancy_requirement, vacancy_responsibility
             # raise TypeError("requirement and responsibility must be str")
@@ -166,9 +165,9 @@ class VacancyHHRU(Vacancy):
         if vacancy_dict.get("employer"):
             try:
                 vacancy_employer_id = int(vacancy_dict.get("employer").get("id"))
-            except:
+            except Exception:
                 raise TypeError("employer id must transform into int")
-            if type(vacancy_employer_id) == int:
+            if isinstance(vacancy_employer_id, int):
                 return vacancy_employer_id
             raise TypeError("employer id must be int")
 
@@ -179,7 +178,7 @@ class VacancyHHRU(Vacancy):
 
         if vacancy_dict.get("employer"):
             vacancy_employer_name = vacancy_dict.get("employer").get("name")
-            if type(vacancy_employer_name) == str:
+            if isinstance(vacancy_employer_name, str):
                 return vacancy_employer_name
             raise TypeError("employer name must be str")
 

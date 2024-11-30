@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any, List, Tuple
+from typing import Any
 
 import psycopg2
 
@@ -42,7 +42,7 @@ class DBWorkerPostgresql(DBWorker):
 
         try:
             cur.execute(f"DROP DATABASE {self.__db_name.lower()}")
-        except:
+        except Exception:
             pass
 
         cur.execute(f"CREATE DATABASE {self.__db_name}")
@@ -124,7 +124,16 @@ class DBWorkerPostgresql(DBWorker):
                     try:
                         cur.execute(
                             """
-                            INSERT INTO vacancies (vacancy_id, name, salary_down, salary_up, salary_currency, requirement, responsibility, url, employer_id)
+                            INSERT INTO vacancies
+                            (vacancy_id,
+                            name,
+                            salary_down,
+                            salary_up,
+                            salary_currency,
+                            requirement,
+                            responsibility,
+                            url,
+                            employer_id)
                             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
                             """,
                             (
@@ -195,7 +204,8 @@ class DBWorkerPostgresql(DBWorker):
         return employers_vacancies_count
 
     def get_all_vacancies(self) -> list[tuple]:
-        """получает список всех вакансий с указанием названия компании, названия вакансии и зарплаты и ссылки на вакансию"""
+        """получает список всех вакансий с указанием названия компании,
+        названия вакансии и зарплаты и ссылки на вакансию"""
 
         try:
             conn = psycopg2.connect(dbname=self.__db_name.lower(), **self.__params)
@@ -204,8 +214,9 @@ class DBWorkerPostgresql(DBWorker):
 
         with conn.cursor() as cur:
             cur.execute(
-                """SELECT employers.name AS employer_name, vacancies.name, salary_down, salary_up, salary_currency, url FROM vacancies
-                    INNER JOIN employers USING (employer_id)"""
+                """SELECT employers.name AS employer_name, vacancies.name, salary_down, salary_up, salary_currency, url
+                   FROM vacancies
+                   INNER JOIN employers USING (employer_id)"""
             )
 
             vacancies_list = cur.fetchall()

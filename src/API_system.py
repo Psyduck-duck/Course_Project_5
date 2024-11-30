@@ -1,11 +1,6 @@
-import json
-import time
 from abc import ABC, abstractmethod
 
-import pandas as pd
 import requests
-
-from data.__init__ import PATH_TO_DATA_DIRECTORY
 
 
 class ApiConnection(ABC):

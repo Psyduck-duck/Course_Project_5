@@ -1,7 +1,6 @@
 from unittest.mock import patch
 
 import pytest
-import requests
 
 from src.API_system import ApiConnection, ApiConnectionHHRU
 
